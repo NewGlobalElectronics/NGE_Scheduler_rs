@@ -1,0 +1,52 @@
+[package]
+name    = "nge_scheduler"
+version = "0.1.0"
+edition = "2021"
+authors = ["New Global Electronics"]
+description = "Minimal event-driven periodic scheduler — Rust port of NGE_Scheduler. No Tokio. Baremetal-compatible."
+license     = "MIT"
+repository  = "https://github.com/NewGlobalElectronics/NGE_Scheduler_rs"
+keywords    = ["scheduler", "embedded", "no-std", "real-time", "events"]
+categories  = ["embedded", "no-std", "concurrency"]
+readme      = "README.md"
+
+# ── examples ────────────────────────────────────────────────────────────────
+# Each file in examples/ becomes a runnable binary:
+#   cargo run --example basic_usage
+#   cargo run --example modbus_tty
+#   cargo run --example websocket_ihm
+
+[[example]]
+name = "basic_usage"
+path = "examples/basic_usage.rs"
+
+[[example]]
+name = "modbus_tty"
+path = "examples/modbus_tty.rs"
+
+[[example]]
+name = "websocket_ihm"
+path = "examples/websocket_ihm.rs"
+
+# ── dependencies ─────────────────────────────────────────────────────────────
+[dependencies]
+# Core library has zero external dependencies — only std.
+
+# ── example-only dependencies ────────────────────────────────────────────────
+[dev-dependencies]
+serialport  = "4.2"   # used by modbus_tty example
+sha1        = "0.10"  # used by websocket_ihm example
+base64      = "0.13"  # used by websocket_ihm example
+serde_json  = "1.0"   # used by websocket_ihm example
+chrono      = "0.4"   # used by websocket_ihm example
+
+# Optional: GTK-based IHM example (Linux only)
+# gtk         = "0.18"
+# webkit2gtk  = "2.0"
+# glib        = "0.18"
+# gio         = "0.15"
+
+# ── profiles ─────────────────────────────────────────────────────────────────
+[profile.release]
+opt-level = "z"   # optimise for size — important for small embedded targets
+lto       = true
